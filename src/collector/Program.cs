@@ -1,0 +1,40 @@
+﻿using System;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
+
+namespace Collector
+{
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+            await Host.CreateDefaultBuilder(args)
+            .ConfigureHostConfiguration(hostConfig =>
+            {
+                hostConfig.AddEnvironmentVariables();
+            })
+            .ConfigureServices((hostContext, services) =>
+            {
+                services.AddHttpClient();
+                services.AddSingleton<CloudflareKVClient>();
+                services.AddSingleton<YoLinkCollector>();
+                services.AddCronJob<MeasurementSyncronizer, MeasurementSyncronizer.Options>(c =>
+                {
+                    c.TimeZoneInfo = TimeZoneInfo.Local;
+                    c.CronExpression = "0 * * * *";
+                    c.DeviceIds = new[] { "d88b4c0100039ec0", "d88b4c0100041f81" };
+                });
+
+                services.Configure<CloudflareKVClient.Options>(hostContext.Configuration.GetSection("CF"));
+                services.Configure<YoLinkCollector.Options>(hostContext.Configuration.GetSection("YO"));
+            })
+            .Build()
+            .RunAsync();
+        }
+    }
+}
