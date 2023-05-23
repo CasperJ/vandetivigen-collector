@@ -51,7 +51,7 @@ namespace Collector
             _log.LogInformation("Getting sensor data");
             await foreach (var dev in _yoLinkCollector.CollectAsync(_options.DeviceIds))
             {
-                if (dev.deviceId == "d88b4c0100039ec0")
+                if (dev.deviceId == "d88b4c010005b59d")
                 {
                     _log.LogInformation("Got temperature value {dev.temperature} from device {dev.deviceId}", dev.temperature, dev.deviceId);
                     temp1 = dev.temperature;
