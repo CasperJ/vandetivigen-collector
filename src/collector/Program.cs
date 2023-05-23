@@ -14,6 +14,15 @@ namespace Collector
         static async Task Main(string[] args)
         {
             await Host.CreateDefaultBuilder(args)
+            .ConfigureLogging(loggingContext =>
+            {
+                loggingContext.AddSimpleConsole(options =>
+                {
+                    options.IncludeScopes = true;
+                    options.SingleLine = true;
+                    options.TimestampFormat = "[yyyy-MM-dd HH:mm:ss] ";
+                });
+            })
             .ConfigureHostConfiguration(hostConfig =>
             {
                 hostConfig.AddEnvironmentVariables();
