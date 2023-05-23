@@ -61,7 +61,7 @@ namespace Collector
                     _log.LogInformation("Got temperature value {dev.temperature} from device {dev.deviceId}", dev.temperature, dev.deviceId);
                     temp2 = dev.temperature;
                 }
-                if (date == null)
+                if (date == null || date < dev.reportedAt)
                     date = dev.reportedAt;
             }
             if (date != null)
