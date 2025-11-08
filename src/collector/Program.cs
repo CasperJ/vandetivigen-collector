@@ -36,7 +36,7 @@ namespace Collector
                 {
                     c.TimeZoneInfo = TimeZoneInfo.Local;
                     c.CronExpression = "0 * * * *";
-                    c.DeviceIds = new[] { "d88b4c0100092689", "d88b4c0100041f81" };
+                    c.DeviceIds = new[] { "d88b4c0100092689", "d88b4c0100092654" };
                 });
 
                 services.Configure<CloudflareKVClient.Options>(hostContext.Configuration.GetSection("CF"));

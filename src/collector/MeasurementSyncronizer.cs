@@ -56,7 +56,7 @@ namespace Collector
                     _log.LogInformation("Got temperature value {dev.temperature} from device {dev.deviceId}", dev.temperature, dev.deviceId);
                     temp1 = dev.temperature;
                 }
-                if (dev.deviceId == "d88b4c0100041f81")
+                if (dev.deviceId == "d88b4c0100092654")
                 {
                     _log.LogInformation("Got temperature value {dev.temperature} from device {dev.deviceId}", dev.temperature, dev.deviceId);
                     temp2 = dev.temperature;
